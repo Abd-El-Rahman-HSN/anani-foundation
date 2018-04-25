@@ -1,0 +1,184 @@
+$(document).on("turbolinks:before-cache", function() {
+  $('.table-striped').DataTable().destroy();
+});
+
+$(document).on('turbolinks:load', function() {
+  $(".date").datepicker({
+    format: 'yyyy-mm-dd',
+    orientation: 'bottom left'
+  });
+
+  $('.table-striped tfoot th').each( function () {
+    var title = $(this).text();
+    $(this).html( '<input type="text" placeholder="أبحث '+ title +'" />' );
+  });
+
+  var table = $('.table-striped').DataTable({
+    language: {
+      "sProcessing":   "جاري التحميل...",
+      "sLengthMenu":   "أظهر مُدخلات _MENU_",
+      "sZeroRecords":  "لم يُعثر على أية سجلات",
+      "sInfo":         "إظهار _START_ إلى _END_ من أصل _TOTAL_ مُدخل",
+      "sInfoEmpty":    "يعرض 0 إلى 0 من أصل 0 سجلّ",
+      "sInfoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
+      "sInfoPostFix":  "",
+      "sSearch":       "ابحث:",
+      "sUrl":          "",
+      "oPaginate": {
+        "sFirst":    "الأول",
+        "sPrevious": "السابق",
+        "sNext":     "التالي",
+        "sLast":     "الأخير"
+      }
+    }
+  });
+
+  table.columns().every( function () {
+    var that = this;
+
+    $( 'input', this.footer() ).on( 'keyup change', function () {
+        if ( that.search() !== this.value ) {
+            that
+              .search( this.value )
+              .draw();
+        }
+      });
+  });
+
+  $('#job_order_location_id').on('change', function() {
+    location_id = $('#job_order_location_id').val();
+    $.ajax({
+      url:"/locations/" + location_id,
+      type: "GET",
+      dataType: 'json',
+      data: { q_term: { } },
+      success: function(result){
+        $('#job_order_workshop_id').children().remove();
+        $.each(result.workshops, function(key, value) {
+          $('#job_order_workshop_id')
+            .append($('<option>', { value : value.id })
+            .text(value.name)); 
+        });
+        $('#job_order_workshop_id').change();
+      }
+    })
+  });
+
+  $('#job_order_workshop_id').on('change', function() {
+    workshop_id = $('#job_order_workshop_id').val();
+    $.ajax({
+      url:"/workshops/" + workshop_id,
+      type: "GET",
+      dataType: 'json',
+      data: { q_term: { } },
+      success: function(result){
+        $('#job_order_loom_id').children().remove();
+        $.each(result.looms, function(key, value) {
+          $('#job_order_loom_id')
+            .append($('<option>', { value : value.id })
+            .text(value.reference)); 
+        });
+      }
+    });
+
+    assign_workers('nil');
+  });
+
+  $('.job_order_workers').on('cocoon:after-insert', function(e, insertedLine) {
+    if ($('.worker_field').length == 3) {
+      $('.add_worker_btn').hide();
+    }
+    assign_workers(insertedLine.find('.worker_field').attr('id'));
+  });
+
+  $('.job_order_workers').on('cocoon:after-remove', function(e, insertedLine) {
+    if ($('.worker_field').length < 3) {
+      $('.add_worker_btn').show();
+    }
+  });
+
+  $('.job_order_raw_materials').on('cocoon:after-insert', function(e, insertedLine) {
+    $.each($('.raw_material_name'), function(key, value) {
+      if (value.value.length > 0)
+        insertedLine.find(".raw_material_name option[value=" + value.value + "]").remove();
+    });
+
+  });
+
+  $('.job_order_raw_materials').on('cocoon:before-remove', function(e, insertedLine) {
+    // insertedLine.find(".raw_material_name option[value='']").attr('selected', true);
+    insertedLine.find(".raw_material_name").val('');
+    insertedLine.find(".raw_material_name").change();
+    console.log(insertedLine.find(".raw_material_name").val());
+  });
+
+  $('#job_order_carpet_datum_attributes_length').on('change keyup', function() {
+    area_change();
+  });
+
+  $('#job_order_carpet_datum_attributes_width').on('change keyup', function() {
+    area_change();
+  });
+
+  $('.job_order_raw_materials').on( 'focus', '.raw_material_name', function () {
+     $('#' + this.id).data("prev_value", this.value);
+     $('#' + this.id).data("previous_text", this.selectedOptions[0].text);
+     console.log(this.value, this.selectedOptions[0].text);
+   });
+
+  $('.job_order_raw_materials').on( 'change', '.raw_material_name', function() {
+    removeItemVal = $(this).val();
+    removeItem = $(this).toArray();
+    previous_value = $(this).data("prev_value");
+    previous_text = $(this).data("previous_text");
+    y = $('.raw_material_name').toArray();
+
+    myArray = y.filter( function( el ) {
+      return !removeItem.includes( el );
+    });
+
+    $.each(myArray, function(index, el) {
+      if(removeItemVal.length > 0)
+        $("#" + el.id +" option[value=" + removeItemVal + "]").remove();
+      if(previous_value.length > 0)
+        $('#' + el.id ).append($('<option>', {
+            value: previous_value,
+            text: previous_text
+        }));
+    });
+    $('#' + this.id).data("prev_value", this.value);
+    $('#' + this.id).data("previous_text", this.selectedOptions[0].text);
+  });
+
+
+  var area_change = function() {
+    length = $('#job_order_carpet_datum_attributes_length').val();
+    width = $('#job_order_carpet_datum_attributes_width').val();
+    $('#job_order_carpet_datum_attributes_area').val(length * width);
+  }
+
+  var assign_workers = function(inserted_line_id) {
+    workshop_id = $('#job_order_workshop_id').val();
+    $.ajax({
+      url:"/workshops/" + workshop_id,
+      type: "GET",
+      dataType: 'json',
+      data: { q_term: { }},
+      success: function(result){
+
+        if (inserted_line_id != 'nil') {
+          worker_field = $('#' + inserted_line_id);
+        }
+        else {
+          worker_field = $('.worker_field');
+        }
+        worker_field.children().remove();
+        $.each(result.workers, function(key, value) {
+          worker_field
+            .append($('<option>', { value : value.id })
+            .text(value.name)); 
+        });
+      }
+    });
+  }
+});

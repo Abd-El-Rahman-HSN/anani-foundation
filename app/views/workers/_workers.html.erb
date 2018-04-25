@@ -1,0 +1,47 @@
+<div class="panel panel-primary workers">
+  <div class="panel-heading">أجور العاملين</div>
+  <div class="panel-body">
+		<%= render 'worker' %>
+  </div>
+</div>
+
+<div class="panel panel-primary workers">
+  <div class="panel-heading">أجور المدربين</div>
+  <div class="panel-body">
+		<%= render 'trainer' %>
+  </div>
+</div>
+
+<div class="panel panel-primary workers">
+  <div class="panel-heading">أجور التدريب</div>
+  <div class="panel-body">
+		<%= render 'trainee' %>
+  </div>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-bordered table-condensed">
+  <tr>
+  	<th>أجمالي المرتبات</th>
+    <td colspan="9"></td>
+    <td><%= @total_income %></td>
+  </tr>
+  </table>
+</div>
+
+<div class="panel panel-primary workers">
+  <div class="panel-heading">المصروفات</div>
+  <div class="panel-body">
+		<%= render 'expenses' %>
+  </div>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-bordered table-condensed">
+  <tr>
+    <th>الأجمالي</th>
+    <td colspan="9"></td>
+    <td><%= (@total_income || 0) + (@total_expenses || 0) %></td>
+  </tr>
+  </table>
+</div>

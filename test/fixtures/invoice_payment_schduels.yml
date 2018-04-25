@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  amount: 9.99
+  due_after: 2017-02-11
+  due_from: 2017-02-11
+
+two:
+  amount: 9.99
+  due_after: 2017-02-11
+  due_from: 2017-02-11

@@ -1,0 +1,10 @@
+<%= simple_form_for @loom, wrapper: :vertical_form do |f| %>
+  <%= f.error_notification message: 'راجع الأخطاء' %>
+
+  <%= f.input :workshop_id, label: "اسم الورشه", collection: @workshop_options %>
+  <%= f.input :reference, label: "رقم النول" %>
+  <%= f.input :seda_worker, label: "حساب السدي للعمال" %>
+  <%= f.input :seda_trainer, label: "حساب السدي للمدرب" %>
+        
+  <%= f.submit "حفظ", class: "btn btn-default btn-primary" %>   
+<% end %>

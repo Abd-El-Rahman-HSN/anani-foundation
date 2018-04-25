@@ -1,0 +1,40 @@
+<div class="page-header">
+  <h1>المصروفات</h1>
+
+  <%= link_to(new_expense_path, class: "btn btn-success") do %>
+    اضافة المصروفات <i class="icon-plus icon-white"></i>
+  <% end %>
+</div>
+
+<table class="table table-bordered table-condensed table-striped">
+  <thead>
+    <tr>
+      <th>البند</th>
+      <th>المبلغ</th>
+      <th>التاريخ</th>
+      <th>الورشة</th>
+      <th class="no-sort"></th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <th>البند</th>
+      <th>المبلغ</th>
+      <th>التاريخ</th>
+      <th>الورشة</th>
+      <td></td>
+    </tr>
+  </tfoot>
+  <tbody>
+    <% @expenses.includes(:workshop).each do |expense| %>
+      <tr>
+        <td><%= expense.kind %></td>
+        <td><%= expense.amount %></td>
+        <td><%= l expense.created_at.to_date, format: :date_month_year_concise %></td>      
+        <td><%= expense.workshop_id %></td>
+        <td><%= link_to 'عرض', edit_expense_path(expense) %>
+        <%= link_to 'مسح', expense, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

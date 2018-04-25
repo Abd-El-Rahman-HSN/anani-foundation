@@ -1,0 +1,44 @@
+<div class="page-header">
+  <h1>الخصومات</h1>
+
+  <%= link_to(new_reduction_path, class: "btn btn-success") do %>
+    اضافة خصم <i class="icon-plus icon-white"></i>
+  <% end %>
+</div>
+
+<table class="table table-bordered table-condensed table-striped">
+  <thead>
+    <tr>
+      <th>الورشة</th>
+      <th>الأسم</th>
+      <th>التاريخ</th>
+      <th>المبلغ</th>
+      <th class="no-sort"></th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <th>الورشة</th>
+      <th>الأسم</th>
+      <th>التاريخ</th>
+      <th>المبلغ</th>
+      <td></td>
+    </tr>
+  </tfoot>
+  <tbody>
+    <% unless @reductions.empty? %>
+      <% @reductions.includes(:workshop, :worker).each do |reduction| %>
+        <tr>
+          <td><%= reduction.workshop.name %></td>
+          <td><%= reduction.worker.name %></td>
+          <td><%= l reduction.created_at.to_date, format: :date_month_year_concise %></td>      
+          <td><%= reduction.cost %></td>
+          <td><%= link_to 'عرض', edit_reduction_path(reduction) %> <%= link_to 'مسح', reduction_path(reduction),
+                method: :delete,
+                data: { confirm: 'Are you sure?' } %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

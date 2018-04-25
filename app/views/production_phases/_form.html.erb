@@ -1,0 +1,14 @@
+<%= simple_form_for @production_phase, wrapper: :boot_form do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :main_material, label: "الخامة الرئيسية" %>
+    <%= f.input :initial_letter, label: "الحرف" %>
+  </div>
+
+  <div class="form-actions">
+	  <%= f.submit "حفظ", class: "btn btn-default btn-primary" %> 
+	  <%= link_to "رجوع", :back, class: "btn btn-default" %>
+
+  </div>
+<% end %>

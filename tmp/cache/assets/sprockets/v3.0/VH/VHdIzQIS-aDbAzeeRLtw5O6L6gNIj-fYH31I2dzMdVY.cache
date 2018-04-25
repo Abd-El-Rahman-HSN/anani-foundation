@@ -1,0 +1,21 @@
+{:uriI"�file:///mnt/c/Users/Abd%20El%20Rahman%20HSN/anani-foundation/vendor/assets/theme/theme/js/datatables/i18n/ar.json?type=application/json&id=cc391eab156ffd4cc9d675a37d4fd171a8cbe36a0ec2f8537e84908954aae979:ET:load_pathI"vendor/assets/theme;T:filenameI"9vendor/assets/theme/theme/js/datatables/i18n/ar.json;T:	nameI" theme/js/datatables/i18n/ar;T:logical_pathI"%theme/js/datatables/i18n/ar.json;T:content_typeI"application/json;T:sourceI"h{
+  "sProcessing":   "جاري التحميل...",
+  "sLengthMenu":   "أظهر مُدخلات _MENU_",
+  "sZeroRecords":  "لم يُعثر على أية سجلات",
+  "sInfo":         "إظهار _START_ إلى _END_ من أصل _TOTAL_ مُدخل",
+  "sInfoEmpty":    "يعرض 0 إلى 0 من أصل 0 سجلّ",
+  "sInfoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
+  "sInfoPostFix":  "",
+  "sSearch":       "ابحث:",
+  "sUrl":          "",
+  "oPaginate": {
+    "sFirst":    "الأول",
+    "sPrevious": "السابق",
+    "sNext":     "التالي",
+    "sLast":     "الأخير"
+  }
+};T:metadata{	:dependencieso:Set:
+@hash}
+I"environment-version;TTI"environment-paths;TTI"rails-env;TTI"@processors:type=application/json&file_type=application/json;TTI"}file-digest:///mnt/c/Users/Abd%20El%20Rahman%20HSN/anani-foundation/vendor/assets/theme/theme/js/datatables/i18n/ar.json;TTF:charsetI"
+utf-8;F:digest"%���M!��ֹ��w�A%��;n��l��7�Ӳz[	:lengthih:dependencies_digest"%��c@�4��7���sy3������xZ��:idI"Ecc391eab156ffd4cc9d675a37d4fd171a8cbe36a0ec2f8537e84908954aae979;F:
+mtimel+�gZ

@@ -1,0 +1,33 @@
+<table class="table table-bordered table-condensed" id="transactions_table">
+  <thead>
+    <tr>
+      <th>رقم</th>
+      <th>رقم الطلب</th>
+      <th>التاريخ</th>
+      <th>النوع</th>
+
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <th>رقم</th>
+      <th>رقم الطلب</th>
+      <th>التاريخ</th>
+      <th>النوع</th>
+    </tr>
+  </tfoot>
+  <tbody>
+    <% unless @warehouse_transactions.empty? %>
+      <% @warehouse_transactions.includes(:request_material).each do |transaction| %>
+        <tr>
+          <td><%= transaction.serial %></td>
+          <td><%= transaction.try(:request_material).try(:serial) %></td>
+          <td><%= l transaction.created_at.to_date, format: :date_month_year_concise %></td>      
+          <td><%= WarehouseTransaction.human_enum_name(:status, transaction.status) %></td>
+         
+        </tr>
+      <% end %>
+    <% end %>
+
+  </tbody>
+</table>

@@ -1,0 +1,31 @@
+<div class="table-responsive">
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>البند</th>
+        <th>المبلغ</th>
+      </tr>
+    </thead>
+    <tbody>
+    	<% workshop = Workshop.find(@workshop_id) %>
+    	<% month = params[:month].to_datetime %>
+      <% workshop.expenses.where(created_at: month.beginning_of_month..month.end_of_month).each do |expense| %>
+      	<% @total_expenses += expense.amount %>
+        <tr>
+          <td><%= expense.kind %></td>
+          <td><%= expense.amount %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+		
+<div class="table-responsive">
+  <table class="table table-bordered table-condensed">
+  <tr>
+  	<th>أجمالي المصروفات</th>
+    <td colspan="9"></td>
+    <td><%= @total_expenses %></td>
+  </tr>
+  </table>
+</div>

@@ -1,0 +1,48 @@
+ <div class="page-header">
+    <h1>الفواتير</h1>
+    <%= link_to(new_invoice_path, class: "btn btn-success") do %>
+      اضافه فاتوره <i class="icon-plus icon-white"></i>
+    <% end %>
+</div>
+
+<table class="table table-striped table-bordered table-condensed">
+<thead>
+<tr>
+  <th colspan="1" class="center">مسلسل الفاتوره </th>
+  <th colspan="1" class="center">التاريخ</th>
+  <th colspan="1" class="center">العميل</th>
+  <th colspan="1" class="center">رقم العميل</th>
+  <th colspan="1" class="center">الصنف</th>
+  <th colspan="1" class="center">الكميه</th>
+  <th colspan="1" class="center">سعر الوحده</th>
+  <th colspan="1" class="center">الخصم</th>
+  <th colspan="1" class="center">الضريبه</th>
+  <th colspan="1" class="action">Actions</th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+    <% unless @invoices.empty? %>
+    <% @invoices.each do |invoice| %>
+      <tr>
+        <td><%= invoice.invoice_serial%></td>
+        <td><%= invoice.date %></td>
+        <td><%= invoice.customer %></td>
+        <td><%= invoice.phone %></td>
+        <td><%= invoice.item%></td>        
+        <td><%= invoice.quantity %></td>
+        <td><%= invoice.unit_price%></td>        
+        <td><%= invoice.discount%></td>
+        <td><%= invoice.tax%></td>        
+        <td><%= link_to 'تعديل الفاتوره', edit_invoice_path(invoice) %>
+        <%= link_to 'مسح الفاتوره', invoice_path(invoice),
+              method: :delete,
+              data: { confirm: 'Are you sure?' } %>
+        </td>
+        <td></td>
+      </tr>
+    <% end %>
+    <% end %>
+
+</tbody>
+</table>

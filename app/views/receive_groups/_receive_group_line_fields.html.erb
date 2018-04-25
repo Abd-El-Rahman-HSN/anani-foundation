@@ -1,0 +1,41 @@
+<div class='nested-fields'>
+	<div class="row">
+	  <div class="col-xs-2">
+		  <%= f.input :job_order_id, label: false, readonly: true, collection: @job_orders, label_method: :get_serial, value_method: :id, input_html: {class: 'job_order_field'} %>
+		</div>
+
+		<div class="col-xs-2">
+		  <%= f.input :cost, label: false, input_html: {class: 'cost_field'} %>
+		</div>
+
+		<div id="other-input-value len" class="col-xs-2">
+			<%= f.input :length, label: false %>
+		</div>
+
+		<div id="input-value wid" class="col-xs-2">
+		  <%= f.input :width, label: false %>
+		</div>
+
+		<div id="result-value ar" class="col-xs-2">
+		  <%= f.input :area, label: false %>
+		</div>
+
+		<div class="col-xs-2">
+		  <%= f.input :note, label: false %>
+		</div>
+<script>
+	var calc = function () {
+  var lenInput = document.getElementById("len").firstChild.value,
+      widInput = document.getElementById("wid").firstChild.value,
+      arOutput = document.getElementById("ar").firstChild.value;
+
+      arOutput = parseInt(lenInput) * parseInt(widInput);
+
+}
+
+document.getElementById("wid").firstChild.onblur = function () {
+  calc();
+}</script>
+		<hr>
+	</div>
+</div>

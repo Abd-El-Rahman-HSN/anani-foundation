@@ -1,0 +1,22 @@
+<table class="table table-bordered table-condensed">
+  <thead>
+    <tr>
+      <th>العامل</th>
+      <th>تاريخ التعيين</th>
+      <th>المبلغ</th>
+    </tr>
+  </thead>
+  <tbody>
+  	<% month = params[:month].to_datetime %>
+    <% daily_production_trainees_for_workshop(@workshop_id, month)[:workers].uniq.each do |trainee| %>
+    <% worker = Worker.find(trainee) %>
+    <% salary = worker.trainee_salary(month) %>
+    <% @total_income += salary %>
+      <tr>
+        <td><%= worker.name %></td>
+        <td><%= l worker.hire_date.to_date, format: :date_month_year_concise %></td>
+        <td><%= salary %>    
+      </tr>
+    <% end %>
+  </tbody>
+</table>

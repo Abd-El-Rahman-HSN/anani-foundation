@@ -1,0 +1,55 @@
+<div class="page-header">
+  <h1>الدفعات المرسلة</h1>
+
+  <%= link_to(new_send_group_path, class: "btn btn-success") do %>
+    أرسال للتشطيب <i class="icon-plus icon-white"></i>
+  <% end %>
+</div>
+
+<table class="table table-bordered table-condensed table-striped">
+  <thead>
+    <tr>
+      <th>الكود</th>
+      <th>الورشة</th>
+      <th>التاريخ</th>
+      <th>الحالة</th>
+      <th class="no-sort"></th>
+      <th class="no-sort"></th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <th>الكود</th>
+      <th>الورشة</th>
+      <th>التاريخ</th>
+      <th>الحالة</th>
+      <td></td>
+      <td></td>
+    </tr>
+  </tfoot>
+  <tbody>
+    <% unless @send_groups.empty? %>
+      <% @send_groups.includes(:workshop).each do |send_group| %>
+        <tr>
+          <td><%= send_group.serial %></td>
+          <td><%= l send_group.created_at.to_date, format: :date_month_year_concise %></td>
+          <td id="status_<%= send_group.id %>"><%= send_group_status(send_group.status) %></td>
+         
+          <td>
+            <% if send_group.status == 'open' %>
+              <%= link_to(new_receive_group_path(send_group_id: send_group.id), id: "popup_button", remote: true, 'data-toggle' => "modal", 'data-target' => "#recieve_job_orders", class: "link_#{send_group.id}") do %>
+                  أستقبال دفعة <i class="icon-plus icon-white"></i>
+              <% end %>
+            <% end %>
+          </td>
+          <td><%= link_to 'عرض', edit_send_group_path(send_group) %> <%= link_to 'مسح', send_group_path(send_group),
+                method: :delete,
+                data: { confirm: 'Are you sure?' } %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<%= render 'popup' %>

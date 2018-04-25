@@ -1,0 +1,12 @@
+$('.job_order_workers').on('cocoon:after-insert', function(e, insertedLine) {
+      if ($('.worker_field').length == 3) {
+        $('.add_worker_btn').hide();
+      }
+      assign_workers(insertedLine.find('.worker_field').attr('id'));
+    });
+  
+    $('.job_order_workers').on('cocoon:after-remove', function(e, insertedLine) {
+      if ($('.worker_field').length < 3) {
+        $('.add_worker_btn').show();
+      }
+    });

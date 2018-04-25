@@ -1,0 +1,22 @@
+ <%= form_for @location, :html => {:class => "form-horizontal center"} do |f| %>
+  <% if @location.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@location.errors.count, "error") %> prohibited
+        this location from being saved:
+      </h2>
+      <ul>
+        <% @location.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+<div class="form-group">
+        <%= f.label "منطقه:", class: "col-md-4 control-label" %>
+        <div class="col-md-8">
+          <%= f.text_field :name, class: "form-control" %>
+        </div>
+      </div>
+      <%= f.submit "حفظ", class: "btn btn-default btn-primary" %>   
+ <% end %>

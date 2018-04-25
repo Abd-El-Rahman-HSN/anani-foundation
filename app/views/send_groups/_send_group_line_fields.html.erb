@@ -1,0 +1,11 @@
+<div class='nested-fields'>
+  <div class="row">
+    <div class="col-xs-6">
+      <!-- <% JobOrder.where(status: "finished") %>-->
+      <%= f.input :job_order_id, label: false, collection: JobOrder.where(status: "finished"),label_method: :get_serial, value_method: :id, input_html: {class: 'send_group_job_order'} %>
+    </div>
+    <div class="col-xs-2"> 
+      <%= link_to_remove_association button_tag("<i class='fa fa-trash'></i> <span>حذف</span>".html_safe, type: "button", class: "btn btn-danger btn-rounded btn-ef btn-ef-5 btn-ef-5b mb-10") , f %>
+    </div>
+  </div>
+</div>

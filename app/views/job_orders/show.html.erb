@@ -1,0 +1,117 @@
+<div class="page-header">
+    <h1>امر شغل رقم <%= @job_order.serial %></h1>
+
+    <% if @job_order.under_acceptance? && current_user.admin? %>
+    <%= button_to(job_order_path(job_order: {status: :waiting_materials}), method: :patch, class: "btn btn-success") do %>
+      تأكيد امر الشغل <i class="icon-plus icon-white"></i>
+    <% end %>
+  <% end %>
+  
+  <% unless @job_order.finished? %>
+    <% unless @job_order.under_acceptance? %>
+      <% if @job_order.request_materials.last && @job_order.request_materials.last.open? %>
+        <%= link_to('#', class: "btn btn-success request_material_close", disabled: true) do %>
+          هنالك طلب مفتوح... <i class="icon-plus icon-white"></i>
+        <% end %>
+      <% else %>
+        <%= link_to(new_request_material_path(job_order: @job_order.id), id: 'popup_button', remote: true, 'data-toggle' => "modal", 'data-target' => "#splash", class: "btn btn-success") do %>
+          طلب خامات <i class="icon-plus icon-white"></i>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
+
+<%= simple_form_for @job_order, wrapper: :vertical_form do |f| %>
+  <%= f.error_notification message: 'راجع الأخطاء' %>
+  
+  <div class="form-inputs">
+    <div class="row">
+      <div class="col-xs-4">
+        <%= f.input :production_phase_id,  as: :string, disabled: true, label: "الدورة الأنتاجية", input_html: {value: @job_order.production_phase.to_s } %>
+      </div>
+      <div class="col-xs-4">
+        <%= f.input :date, disabled: true, label: "التاريخ", disabled: true, as: :string, input_html: {class: "job_order_date", value:  @job_order.new_record? ? Date.today : @job_order.created_at.to_date} %>
+      </div>
+      <% unless @job_order.new_record? %>
+        <div class="col-xs-4">
+          <%= f.input :serial, disabled: true, label: "رقم", disabled: true, input_html: {value: @job_order.serial} %>
+        </div>
+      <% end %>
+    </div>
+    
+    <div class="row">
+      <div class="col-xs-4">
+        <%= f.input :location_id, as: :string, disabled: true, label: "المنطقة", input_html: {value: @job_order.location.name} %>
+      </div>
+      <div class="col-xs-4">
+        <%= f.input :workshop_id, as: :string, disabled: true, label: "الورشة", input_html: {value: @job_order.workshop.name} %>
+      </div>
+      <div class="col-xs-4">
+        <%= f.input :loom_id, as: :string, disabled: true, label: "النول", input_html: {value: @job_order.loom.reference}  %>
+      </div>
+    </div>
+
+    <div class="panel panel-primary workers">
+      <div class="panel-heading">بيانات السجادة</div>
+      <div class="panel-body">
+        <%= f.simple_fields_for :carpet_datum, @carpet do |item| %>
+          <%= render 'carpet_fields', f: item, action: "show" %>
+        <% end %>
+      </div>
+    </div>
+    
+
+    <div class="panel panel-primary workers">
+      <div class="panel-heading">بيانات العمال</div>
+      <div class="panel-body">
+        <table class="table">
+          <thead>
+          <tr>
+            <th>كود العامل</th>
+            <th>الاسم</th>
+            <th>تاريخ التعيين</th>
+            <th>المرتب</th>
+            <th>وحده المرتب</th>
+          </tr>
+          </thead>
+          <tbody>
+            <% unless @job_order.workers.empty? %>
+              <% @job_order.workers.each do |worker| %>
+                <tr>
+                  <td><%= worker.code %></td>
+                  <td><%= worker.name %></td>
+                  <td><%= l worker.hire_date.to_date, format: :date_month_year_concise %></td>      
+                  <td><%= worker.rate_amount %></td>
+                  <td><%= worker.rate_unit %></td>   
+                </tr>
+              <% end %>   
+            <% end %>
+          </tbody>
+        </table>   
+      </div>
+    </div>
+
+    <div class="panel panel-primary raw_materials">
+      <div class="panel-heading">بيانات الخامات</div>
+      <div class="panel-body">
+        <h4>الأسم</h4>
+
+        <div class="job_order_raw_materials">
+          <%= f.simple_fields_for :job_order_raw_materials, @job_order_raw_one do |item| %>
+            <%= render 'job_order_raw_material_fields', f: item, action: "show" %>
+          <% end %>
+        </div>
+        
+      </div>
+    </div>
+
+  <div class="form-actions">
+    <%= link_to "رجوع", :back, class: "btn btn-default btn-lg" %>
+    <% if @job_order.under_acceptance? %>
+      <%= link_to 'تعديل', edit_job_order_path, class: "btn btn-primary btn-lg" %> 
+    <% end %>
+  </div>
+<% end %>
+
+<%= render 'popup' %>

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  job_order_id: 1
+  serial: MyString
+  date: 2017-04-06
+
+two:
+  job_order_id: 1
+  serial: MyString
+  date: 2017-04-06

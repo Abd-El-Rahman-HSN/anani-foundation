@@ -1,0 +1,26 @@
+ <%= simple_form_for @worker, wrapper: :vertical_form do |f| %>
+  <%= f.error_notification message: 'راجع الأخطاء' %>
+    
+  <%= f.input :name, label: "الأسم" %>
+  <%= f.input :category, label: "الفئه" %>
+  <%= f.input :workshop_id, label: "الورشة", collection: @workshops, value_method: :id, label_method: :name %>
+  <%= f.input :hire_date, label: "تاريخ التعيين", as: :string, input_html: {class: "date", value:  @worker.new_record? ? Date.today : @worker.hire_date.to_date} %>
+  <div class="row">
+    <div class="col-xs-6">
+      <%= f.input :rate_amount, label: "المرتب" %>
+    </div>
+    <div class="col-xs-6">
+      <%= f.input :rate_unit, label: "وحده المرتب" %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6">
+      <%= f.input :address, label: "العنوان" %>
+    </div>      
+    <div class="col-xs-6">
+      <%= f.input :phone, label: "التليفون" %>
+    </div>
+  </div>
+
+  <%= f.submit "حفظ", class: "btn btn-default btn-primary" %>   
+ <% end %>

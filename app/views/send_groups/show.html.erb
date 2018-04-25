@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Serial:</strong>
+  <%= @send_group.serial %>
+</p>
+
+<p>
+  <strong>Workshoop:</strong>
+  <%= @send_group.workshoop_id %>
+</p>
+
+<%= link_to 'Edit', edit_send_group_path(@send_group) %> |
+<%= link_to 'Back', send_groups_path %>

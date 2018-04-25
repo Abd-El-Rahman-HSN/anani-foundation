@@ -1,0 +1,28 @@
+<%= simple_form_for @rawmaterial, wrapper: :vertical_form do |f| %>
+  <%= f.error_notification message: 'راجع الأخطاء' %>
+
+  <div class="row">
+    <div class="col-xs-6">
+      <%= f.input :code, label: "كود الصنف:" %>
+    </div>
+
+    <div class="col-xs-6">
+      <%= f.input :item, label: "الصنف:" %>
+    </div>
+  </div>
+  
+  <%= f.input :description, label:"الوصف:" %>
+  <div class="row">
+    <div class="col-xs-4">
+      <%= f.input :uom, label: "الوحده:" %>
+    </div>
+    <div class="col-xs-4">
+      <%= f.input :safety_level, label: "حد الامان:" %>
+    </div>
+    <div class="col-xs-4">
+      <%= f.input :category, label: "الفئه:" %>
+    </div>
+  </div>
+
+  <%= f.submit "حفظ", class: "btn btn-default btn-primary" %>   
+ <% end %>

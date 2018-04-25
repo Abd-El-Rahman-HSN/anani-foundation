@@ -1,0 +1,36 @@
+ <div class="page-header">
+    <h1>النول</h1>
+    <%= link_to(new_loom_path, class: "btn btn-success") do %>
+      اضافه نول  <i class="icon-plus icon-white"></i>
+    <% end %>
+</div>
+
+<table class="table table-striped table-bordered table-condensed">
+  <thead>
+    <tr>
+      <th>رقم النول</th>
+      <th>اسم الورشه</th>
+      <th class="no-sort"></th>
+    </tr>
+  </thead>
+  <tfoot>
+    <th>رقم النول</th>
+    <th>اسم الورشه</th>
+    <td></td>
+  </tfoot>
+  <tbody>
+    <% unless @looms.empty?%>
+      <% @looms.includes(:workshop).each do |loom| %>
+        <tr>
+          <td><%= loom.reference %></td>
+          <td><%= loom.try(:workshop).try(:name) %></td>       
+          <td><%= link_to 'تعديل', edit_loom_path(loom) %>
+          <%= link_to 'مسح', loom_path(loom),
+                method: :delete,
+                data: { confirm: 'Are you sure?' } %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

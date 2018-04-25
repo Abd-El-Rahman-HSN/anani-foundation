@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  code: 1
+  name: MyString
+  address: MyText
+  phone: MyString
+  category: MyString
+  rate_unit: 1
+  rate_amount: 1
+  fired: MyString
+  firing_date: 2017-02-11
+
+two:
+  code: 1
+  name: MyString
+  address: MyText
+  phone: MyString
+  category: MyString
+  rate_unit: 1
+  rate_amount: 1
+  fired: MyString
+  firing_date: 2017-02-11

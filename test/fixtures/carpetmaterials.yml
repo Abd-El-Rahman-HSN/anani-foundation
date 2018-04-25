@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  carpet_id: 1
+  raw_material_id: 1
+  quantity: 1
+
+two:
+  carpet_id: 1
+  raw_material_id: 1
+  quantity: 1

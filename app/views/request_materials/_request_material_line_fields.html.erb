@@ -1,0 +1,10 @@
+<div class='nested-fields'>
+	<div class="row">
+	  <div class="col-xs-6">
+		  <%= f.input :raw_material_warehouse_id, label: false, readonly: true ,collection: @raw_materials ,label_method: :item , value_method: :id, input_html: {class: 'raw_field'} %>
+		</div>
+
+		<div class="col-xs-6">
+		  <%= f.input :quantity, label: false, input_html: {class: 'quantity_field'} %>
+		</div>
+</div>

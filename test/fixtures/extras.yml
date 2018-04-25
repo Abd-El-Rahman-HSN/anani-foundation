@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cost: 1.5
+  worker_id: 1
+  workshop_id: 1
+
+two:
+  cost: 1.5
+  worker_id: 1
+  workshop_id: 1

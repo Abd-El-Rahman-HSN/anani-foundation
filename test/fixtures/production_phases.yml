@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  main_material: MyString
+  phase_no: 1
+  initial_letter: MyString
+
+two:
+  main_material: MyString
+  phase_no: 1
+  initial_letter: MyString

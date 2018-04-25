@@ -1,0 +1,55 @@
+<div class="page-header">
+  <h1>العمال</h1>
+
+    <%= link_to(new_worker_path, class: "btn btn-success") do %>
+      اضافه عامل<i class="icon-plus icon-white"></i>
+    <% end %>
+</div>
+
+<table class="table table-striped table-bordered table-condensed">
+  <thead>
+  <tr>
+    <th>كود العامل</th>
+    <th>الاسم</th>
+    <th>تاريخ التعيين</th>
+    <th>الورشة</th>
+    <th>الفئه</th>
+    <th>المرتب</th>
+    <th>وحده المرتب</th>
+    <th class="no-sort"></th>
+  </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <th>كود العامل</th>
+      <th>الاسم</th>
+      <th>تاريخ التعيين</th>
+      <th>الورشة</th>
+      <th>الفئه</th>
+      <th>المرتب</th>
+      <th>وحده المرتب</th>
+      <td></td>
+    </tr>
+  </tfoot>
+  <tbody>
+    <% unless @workers.empty? %>
+      <% @workers.includes(:workshop).each do |worker| %>
+        <tr>
+          <td><%= worker.code %></td>
+          <td><%= worker.name %></td>
+          <td><%= l worker.hire_date.to_date, format: :date_month_year_concise %></td>      
+          <td><%= worker.workshop.try(:name) %></td>
+          <td><%= worker.category.text %></td> 
+          <td><%= worker.rate_amount %></td>
+          <td><%= worker.rate_unit%></td>        
+
+          <td><%= link_to 'تعديل', edit_worker_path(worker) %>
+          <%= link_to 'مسح', worker_path(worker),
+                method: :delete,
+                data: { confirm: 'Are you sure?' } %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

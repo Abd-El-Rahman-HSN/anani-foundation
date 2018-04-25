@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Cost:</strong>
+  <%= @reduction.cost %>
+</p>
+
+<p>
+  <strong>Worker:</strong>
+  <%= @reduction.worker_id %>
+</p>
+
+<p>
+  <strong>Workshop:</strong>
+  <%= @reduction.workshop_id %>
+</p>
+
+<%= link_to 'Edit', edit_reduction_path(@reduction) %> |
+<%= link_to 'Back', reductions_path %>

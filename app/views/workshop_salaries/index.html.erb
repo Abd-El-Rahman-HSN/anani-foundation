@@ -1,0 +1,31 @@
+<div class="page-header">
+  <h1>كشف توزيع اجور انتاج + حافز انتاج لمنتجي السجاد اليدوي</h1>
+</div>
+
+<%= form_tag(workers_path, method: 'get', remote: true) do %>
+  <div class="form-group">
+    <%= label_tag("عن شهر") %> 
+    <%= text_field_tag "month", nil, class: "salary_date form-control" %>
+  </div>
+  <div class="row">
+    <div class="col-xs-6">
+      <div class="form-group">
+        <%= label_tag("منطقة") %> 
+        <%= select_tag "location_id", options_from_collection_for_select(@locations, "id", "name"), include_blank: true, class: 'form-control', id: 'job_order_location_id' %>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <div class="form-group">
+        <%= label_tag("ورشة") %> 
+        <%= select_tag "workshop_id", options_from_collection_for_select([], "id", "name"), class: 'form-control', id: 'job_order_workshop_id' %>
+      </div>
+    </div>
+  </div>
+  <%= submit_tag "أرسل",class: "btn btn-primary" %>
+<% end %>
+
+
+<div id="salaries_table_result">
+
+  
+</div>

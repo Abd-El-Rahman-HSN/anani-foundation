@@ -1,0 +1,95 @@
+<%= simple_form_for @job_order, wrapper: :vertical_form do |f| %>
+  <%= f.error_notification message: 'راجع الأخطاء' %>
+    <% if @job_order.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@job_order.errors.count, "error") %> prohibited
+        this location from being saved:
+      </h2>
+      <ul>
+        <% @job_order.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="form-inputs">
+    <div class="row">
+      <div class="col-xs-4">
+        <%= f.input :production_phase_id, label: "الدورة الأنتاجية", collection: @production_phases, value_method: :id   %>
+      </div>
+      <div class="col-xs-4">
+        <%= f.input :date, label: "التاريخ", disabled: true, as: :string, input_html: {class: "job_order_date", value:  @job_order.new_record? ? Date.today : @job_order.created_at.to_date} %>
+      </div>
+      <% unless @job_order.new_record? %>
+        <div class="col-xs-4">
+          <%= f.input :serial, label: "رقم", disabled: true, input_html: {value: get_serial(@job_order.id)} %>
+        </div>
+      <% end %>
+    </div>
+    
+    <div class="row">
+      <div class="col-xs-4">
+        <%= f.input :location_id, label: "المنطقة", collection: Location.all %>
+      </div>
+      <div class="col-xs-4">
+        <%= f.input :workshop_id, label: "الورشة", collection: @job_order.new_record? ? (@workshops_create || []) : @workshops ,label_method: :name , value_method: :id %>
+      </div>
+      <div class="col-xs-4">
+        <%= f.input :loom_id, label: "النول", collection: @job_order.new_record? ? (@looms_create || []) : @looms ,label_method: :reference , value_method: :id %>
+      </div>
+    </div>
+
+    <div class="panel panel-primary workers">
+      <div class="panel-heading">بيانات السجادة</div>
+      <div class="panel-body">
+        <%= f.simple_fields_for :carpet_datum, @carpet do |item| %>
+          <%= render 'carpet_fields', f: item, action: "edit" %>
+        <% end %>
+      </div>
+    </div>
+    
+
+    <div class="panel panel-primary workers">
+      <div class="panel-heading">بيانات العمال</div>
+      <div class="panel-body">
+        <h4>الأسم</h4>
+
+        <div class="job_order_workers">
+          <%= f.simple_fields_for :job_order_workers, @job_order_one do |item| %>
+            <%= render 'job_order_worker_fields', f: item %>
+          <% end %>
+        </div>
+        <div class="links">
+          <%= link_to_add_association button_tag("<i class='fa fa-plus'></i> <span>أضف</span>".html_safe) , f, :job_order_workers, data: {"association-insertion-node" => "div.job_order_workers", "association-insertion-method" => "append"}, class: 'add_worker_btn btn pull-right' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-primary raw_materials">
+      <div class="panel-heading">بيانات الخامات</div>
+      <div class="panel-body">
+        <h4>الأسم</h4>
+
+        <div class="job_order_raw_materials">
+          <%= f.simple_fields_for :job_order_raw_materials, @job_order_raw_one do |item| %>
+            <%= render 'job_order_raw_material_fields', f: item %>
+          <% end %>
+        </div>
+        <div class="links" >
+          <%= link_to_add_association button_tag("<i class='fa fa-plus'></i> <span>أضف</span>".html_safe) , f, :job_order_raw_materials, data: {"association-insertion-node" => "div.job_order_raw_materials", "association-insertion-method" => "append"}, class: 'add_raw_btn' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="">
+      <h2></h2>
+      <hr>
+      
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit "حفظ", class: "btn btn-default btn-primary btn-lg" %> 
+    <%= link_to "رجوع", :back, class: "btn btn-default btn-lg" %>
+  </div>
+ <% end %>

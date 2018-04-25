@@ -1,0 +1,9 @@
+
+          <div id='tasks'>
+            <%= f.simple_fields_for :tasks do |task| %>
+              <%= render 'task_fields', :f => task %>
+            <% end %>
+            <div class='links'>
+              <%= link_to_add_association 'add task', f, :tasks %>
+            </div>
+          </div>

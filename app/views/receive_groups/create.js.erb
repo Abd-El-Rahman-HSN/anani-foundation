@@ -1,0 +1,7 @@
+$('#recieve_job_orders').modal('hide');
+
+$('#status_<%= @receive_group.send_group_id %>').html('<%= j send_group_status(@receive_group.send_group.status) %>')
+$('.badge_request').html('<%= RequestMaterial.open.count %>');
+<% if @receive_group.send_group.status == 'closed' %>
+	$('.link_<%= @receive_group.send_group_id %>').html('');
+<% end %>

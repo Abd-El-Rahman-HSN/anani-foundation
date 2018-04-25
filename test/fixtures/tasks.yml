@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  names: MyString
+  lengths: 1
+  widths: 1
+  spaces: 1
+  raws: MyString
+  pricemetre: 1
+  totals: 1
+  invoice: one
+
+two:
+  names: MyString
+  lengths: 1
+  widths: 1
+  spaces: 1
+  raws: MyString
+  pricemetre: 1
+  totals: 1
+  invoice: two

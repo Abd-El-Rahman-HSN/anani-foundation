@@ -1,0 +1,27 @@
+<div class="page-header">
+  <h1>تعديل أمر الشغل</h1>
+
+  <% if @job_order.under_acceptance? && current_user.admin? %>
+    <%= button_to(job_order_path(job_order: {status: :waiting_materials}), method: :patch, class: "btn btn-success") do %>
+      تأكيد امر الشغل <i class="icon-plus icon-white"></i>
+    <% end %>
+	<% end %>
+	
+	<% unless @job_order.finished? %>
+		<% unless @job_order.under_acceptance? %>
+			<% if @job_order.request_materials.last && @job_order.request_materials.last.open? %>
+		    <%= link_to('#', class: "btn btn-success request_material_close", disabled: true) do %>
+		      هنالك طلب مفتوح... <i class="icon-plus icon-white"></i>
+		    <% end %>
+		  <% else %>
+		  	<%= link_to(new_request_material_path(job_order: @job_order.id), id: 'popup_button', remote: true, 'data-toggle' => "modal", 'data-target' => "#splash", class: "btn btn-success") do %>
+		      طلب خامات <i class="icon-plus icon-white"></i>
+		    <% end %>
+		  <% end %>
+		<% end %>
+  <% end %>
+</div>
+
+<%= render "form" %> 
+
+<%= render 'popup' %>

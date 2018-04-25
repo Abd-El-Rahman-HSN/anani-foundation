@@ -1,0 +1,2 @@
+class WorkshopSalary < ApplicationRecord
+end

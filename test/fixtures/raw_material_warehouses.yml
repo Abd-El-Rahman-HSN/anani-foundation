@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  code: 1
+  item: MyString
+  description: MyText
+  uom: 1
+  safety_level: 1
+  category: MyString
+
+two:
+  code: 1
+  item: MyString
+  description: MyText
+  uom: 1
+  safety_level: 1
+  category: MyString

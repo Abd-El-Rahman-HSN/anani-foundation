@@ -1,0 +1,21 @@
+<tr class='nested-fields' >
+  <td><%= f.input :names , label: false , collection: JobOrder.where(status: "received"),label_method: :get_serial, value_method: :id %></td>
+  <td><%= f.input :lengths , label: false %></td>
+  <td><%= f.input :widths , label: false %></td>
+  <td><%= f.input :spaces , label: false %></td>
+  <td><%= f.input :raws , label: false %></td>
+  <td><%= f.input :pricemetre , label: false %></td>
+  <td><%= f.input :totals , label: false %></td>
+  <td><%= link_to_remove_association "حذف سجادة", f ,class: "btn btn-success"%></td>
+</tr>
+<!--
+<div class='nested-fields'>
+  <%= f.input :names , label: false %>
+  <%= f.input :lengths , label: false %>
+<%= f.input :widths , label: false %>
+<%= f.input :spaces , label: false %>
+<%= f.input :raws , label: false %>
+<%= f.input :pricemetre , label: false %>
+<%= f.input :totals , label: false %>
+  <%= link_to_remove_association "remove task", f %>
+</div>-->

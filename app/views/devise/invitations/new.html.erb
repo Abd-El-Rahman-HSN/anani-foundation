@@ -1,0 +1,36 @@
+<div class="page-header">
+	<h2><%= t "devise.invitations.new.header" %></h2>
+</div>
+
+<%= bootstrap_devise_error_messages! %>
+<div class="panel panel-default devise-bs">
+  <div class="panel-heading">
+  </div>
+  <div class="panel-body">
+
+	  <%= simple_form_for resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post} do |f| %>
+			 <%= devise_error_messages! %>
+
+			<% resource.class.invite_key_fields.each do |field| -%>
+			  <%= f.input field %>
+			<% end -%>
+
+			<div class="row">
+	      <div class="col-xs-4">
+	        <%= f.input :admin, label: 'مدير' %>
+	      </div>
+	      <div class="col-xs-4">
+	        <%= f.input :inventory, label: 'المخزن' %>
+	      </div>
+	      <div class="col-xs-4">
+	        <%= f.input :recorder, label: 'مسجل' %>
+	      </div>
+	    </div>
+
+			<%= f.button :submit, t("devise.invitations.new.submit_button"), class: 'btn btn-primary'  %>
+		<% end %>
+
+  </div>
+</div>
+
+<%#= render 'devise/shared/links' %>

@@ -1,0 +1,49 @@
+<% modal ||= false %>
+<% remote = modal ? true : false %>
+
+<div class="page-header">
+  <h1>أضافة خامات</h1>
+</div>
+
+<%= simple_form_for @warehouse_transaction, wrapper: :boot_form, remote: remote do |f| %>
+  <%= f.error_notification message: "راجع الأخطاء" %>
+
+  <div class="form-inputs">
+    <%= f.input :date, label: "التاريخ", disabled: true, as: :string, input_html: {class: "warehouse_transaction_date", value:  @warehouse_transaction.new_record? ? Date.today : @warehouse_transaction.created_at.to_date} %>
+    <%= f.input :status, as: :hidden, input_html: { value: params[:status] || params[:warehouse_transaction][:status] } %>
+  </div>
+
+   <div class="warehouse_transaction_line">
+    <h2>الخامات</h2>
+    <hr>
+    <div class="row">
+    	<div class="col-xs-3">
+    		<h4>الأسم</h4>
+    	</div>
+    	<div class="col-xs-3">
+    		<h4>الكمية</h4>
+    	</div>
+      <div class="col-xs-3">
+    		<h4>سعر الوحدة</h4>
+      </div>
+      <div class="col-xs-3">
+    		<h4>اسم المورد</h4>
+      </div>
+    </div>
+    
+
+	  <div class="warehouse_transaction_lines">
+	    <%= f.simple_fields_for :warehouse_transaction_lines do |item| %>
+	      <%= render 'warehouse_transaction_line_fields', f: item %>
+	    <% end %>
+
+
+    <div class="links">
+      <%= link_to_add_association button_tag("<i class='fa fa-plus'></i> <span>أضف</span>".html_safe) , f, :warehouse_transaction_lines, data: {"association-insertion-node" => "div.warehouse_transaction_lines", "association-insertion-method" => "append"} %>
+    </div>
+	</div>
+    
+  <div class="form-actions">
+    <%= f.submit "حفظ", class: "btn btn-default btn-primary" %>
+  </div>
+<% end %>

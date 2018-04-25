@@ -1,0 +1,30 @@
+ <%= simple_form_for @carpetdata, wrapper: :boot_form do |f| %>
+  <% if @carpetdata.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@carpetdata.errors.count, "error") %> prohibited
+        this showroom from being saved:
+      </h2>
+      <ul>
+        <% @carpetdata.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-inputs">
+    <%= f.input :width, label: "العرض:"%>
+    <%= f.input :lenght, label: "الطول:"%>
+    <%= f.input :knot, label: "عدد العقد:"%>
+    <%= f.input :code, label:  "كود:"%>
+    <%= f.input :name, label: "الاسم:"%>
+    <%= f.input :main_model, label: "التصميم الرئيسى:"%>
+    <%= f.input :raw_material_name, label: "اسم الماده الخام:"%>
+    <%= f.input :raw_material_quantity, label: "الكميه:"%>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit "حفظ", class: "btn btn-default btn-primary" %>   
+  </div>
+ <% end %>

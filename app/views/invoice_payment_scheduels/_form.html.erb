@@ -1,0 +1,36 @@
+ <%= form_for @invoicepayment, :html => {:class => "form-horizontal center"} do |f|%>
+  <% if @invoicepayment.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@invoicepayment.errors.count, "error") %> prohibited
+        this showroom from being saved:
+      </h2>
+      <ul>
+        <% @invoicepayment.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+<div class="form-group">
+        <%= f.label "القيمه:", class: "col-md-4 control-label" %>
+        <div class="col-md-4">
+        <%= f.number_field :amount, value: number_to_currency(f.object.amount.to_f, delimiter: '', unit: ''), step: :any,min:0,class: "form-control" %>
+
+        </div>
+</div>
+<div class="form-group">
+        <%= f.label  "تستحق بعد:", class: "col-md-4 control-label" %>
+        <div class="col-md-4">
+          <%= f.text_field :due_after ,"data-provide"=> 'datepicker',class: "form-control"%>
+        </div>
+</div>
+
+<div class="form-group">
+        <%= f.label "من تاريخ:", class: "col-md-4 control-label" %>
+        <div class="col-md-4">
+          <%= f.text_field :due_from,"data-provide"=> 'datepicker',class: "form-control"%>
+        </div>
+</div>
+      <%= f.submit "حفظ", class: "btn btn-default btn-primary" %>   
+ <% end %>

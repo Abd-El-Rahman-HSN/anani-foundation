@@ -1,0 +1,41 @@
+<table class="table table-bordered table-condensed" id="requests_table">
+  <thead>
+    <tr>
+      <th>رقم</th>
+      <th>رقم أمر الشغل</th>
+      <th>التاريخ</th>
+      <th>الحالة</th>
+      <th class="no-sort"></th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <th>رقم</th>
+      <th>رقم أمر الشغل</th>
+      <th>التاريخ</th>
+      <th>الحالة</th>
+      <td></td>
+    </tr>
+  </tfoot>
+  <tbody>
+    <% unless @request_materials.empty? %>
+      <% @request_materials.order(:status).includes(:job_order).each do |request_material| %>
+        <tr>
+          <td><%= request_material.serial %></td>
+          <td><%= request_material.job_order.get_serial %></td>
+          <td><%= l request_material.created_at.to_date, format: :date_month_year_concise %></td>      
+          <td id="status_<%= request_material.id %>"><%= material_status(request_material.status) %></td>
+         
+          <td>
+            <% if request_material.status == 'open' %>
+              <%= link_to(new_warehouse_transaction_path(status: 'release', request_material_id: request_material.id), id: "popup_button", remote: true, 'data-toggle' => "modal", 'data-target' => "#add_materials", class: "link_#{request_material.id}") do %>
+                  صرف الخامات <i class="icon-plus icon-white"></i>
+              <% end %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+
+  </tbody>
+</table>

@@ -1,0 +1,24 @@
+ <%= form_for @category, :html => {:class => "form-horizontal center"} do |f| %>
+  <% if @category.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@category.errors.count, "error") %> prohibited
+        this showroom from being saved:
+      </h2>
+      <ul>
+        <% @category.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+<div class="form-group">
+        <%= f.label "اسم الفئه:", class: "col-md-4 control-label" %>
+        <div class="col-md-8">
+          <%= f.text_field :name, class: "form-control" %>
+        </div>
+      </div>
+  
+  
+      <%= f.submit "حفظ", class: "btn btn-default btn-primary" %>   
+ <% end %>

@@ -1,0 +1,71 @@
+<div class="table-responsive">
+  <table class="table table-bordered table-condensed">
+    <tbody>
+      <tr>
+        <td colspan="2"></td>
+        <th>رقم امر الشغل</th>
+        <th>السجاده</th>
+        <th>عدد عقد الخط</th>
+        <th>سعر الخط</th>
+        <th>عدد الخطوط</th>
+        <th>جملة</th>
+        <th>السدي</th>
+        <th>الرسومات</th>
+        <th>المكافئات</th>
+        <th>الخصومات</th>
+        <th>الاجمالي</th>
+      </tr>
+      <% @workers.where(category: "worker").each do |worker| %>
+        <% active_workers = worker.job_order_workers_active %>
+        <% extra = Extra.where(worker_id: worker.id, created_at: params[:month].to_datetime.beginning_of_month..params[:month].to_datetime.end_of_month ).pluck(:cost).reduce(:+).to_f %>
+        <% reduction = Reduction.where(worker_id: worker.id, created_at: params[:month].to_datetime.beginning_of_month..params[:month].to_datetime.end_of_month ).pluck(:cost).reduce(:+).to_f %>
+        <% total = extra - reduction %>
+
+        <tr>
+          <th>الأسم</th>
+          <td><%= worker.name %></td>
+          <td colspan="11"></td>
+        </tr>
+        <% active_workers.each do |job_order_worker| %>
+          <% units = salary_units(params[:month], job_order_worker.id) %>
+          <% total += units[:total] %>
+          <tr>
+            <td colspan="2"></td>
+            <td><%= job_order_worker.get_serial %></td>
+            <td><%= units[:carpet_name] %></td>
+            <td><%= units[:carpet_knot] %></td>
+            <td><%= units[:carpet_price_hundred] %></td>
+            <td><%= units[:number_of_rows] %></td>
+            <td><%= units[:price_for_rows] %></td>
+            <td><%= units[:seda] %></td>
+            <td><%= units[:rsomat] %></td>
+            <td colspan="2"></td>
+            <td><%= units[:total] %></td>
+          </tr>
+        <% end %>
+
+          <tr>
+            <td colspan="10"></td>
+            <td><%= extra %></td>
+            <td colspan="2"></td>
+          </tr>
+
+          <tr>
+            <td colspan="11"></td>
+            <td><%= reduction %>-</td>
+            <td></td>
+          </tr>
+        <tr>
+        	<th>أجمالي</th>
+        	<td><%= worker.name %></td>
+          <td colspan="10"></td>
+          <td><%= total %></td>
+          <% @total_income += total %>
+        </tr>
+        <tr>
+          <td colspan="13"></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  send_group_id: 1
+  job_order_id: 1
+
+two:
+  send_group_id: 1
+  job_order_id: 1

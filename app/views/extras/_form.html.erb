@@ -1,0 +1,18 @@
+<%= simple_form_for(@extra, wrapper: :vertical_form) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :date, label: "التاريخ", disabled: true, as: :string, input_html: {class: "extra_date", value:  @extra.new_record? ? Date.today : @extra.created_at.to_date} %>
+
+    <%= f.input :workshop_id, label: "الورشة", collection: @workshops, label_method: :name , value_method: :id %>
+
+    <%= f.input :worker_id, label: "الأسم", collection: @extra.new_record? ? (@workshops_create || []) : @workers ,label_method: :name , value_method: :id %>
+
+    <%= f.input :cost, label: "المبلغ" %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit "حفظ", class: "btn btn-default btn-primary" %> 
+    <%= link_to "رجوع", :back, class: "btn btn-default" %>
+  </div>
+<% end %>

@@ -1,0 +1,42 @@
+<% modal ||= false %>
+<% remote = modal ? true : false %>
+
+<div class="page-header">
+  <h1>طلب صرف خامات</h1>
+</div>
+
+<%= simple_form_for @request_material, wrapper: :boot_form, remote: remote do |f| %>
+  <%= f.error_notification message: 'راجع الأخطاء' %>
+
+  <div class="form-inputs">
+    <%= f.input :serial, as: :string, disabled: true, label: 'رقم', input_html: {value: @serial} %>
+    <%= f.input :job_order_serial, as: :string, disabled: true, label: 'رقم أمر الشغل', input_html: {value: @job_order_serial} %>
+    <%= f.input :date, label: "التاريخ", disabled: true, as: :string, input_html: {class: "request_material_date", value:  @request_material.new_record? ? Date.today : @request_material.created_at.to_date} %>
+
+    <input id="thing" type="hidden" name="job_order" value="<%= params[:job_order] %>" />
+  </div>
+
+  <div class="exhange_request_line">
+    <h2>الخامات</h2>
+    <hr>
+    <div class="row">
+    	<div class="col-xs-6">
+    		<h4>الأسم</h4>
+    	</div>
+
+    	<div class="col-xs-6">
+    		<h4>العدد</h4>
+    	</div>
+    </div>
+
+    <div class="request_material_lines">
+      <%= f.simple_fields_for :request_material_lines do |item| %>
+        <%= render 'request_material_line_fields', f: item %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit "حفظ", class: "btn btn-default btn-primary" %>
+  </div>
+<% end %>

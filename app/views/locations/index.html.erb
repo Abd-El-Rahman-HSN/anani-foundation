@@ -1,0 +1,39 @@
+ <div class="page-header">
+    <h1>اﻟﻤﻨﺎﻃﻖ</h1>
+
+    <%= link_to(new_location_path, class: "btn btn-success") do %>
+    اضافة منطقة جديدة <i class="icon-plus icon-white"></i>
+    <% end %>
+
+</div>
+
+<table class="table table-striped table-bordered table-condensed">
+<thead>
+<tr>
+  <th>مسلسل</th>
+  <th>اﺳﻢ اﻟﻤﻨﻄﻘﻪ </th>
+  <th class="no-sort"></th>
+</tr>
+</thead>
+<tfoot>
+  <th>مسلسل</th>
+  <th>اﺳﻢ اﻟﻤﻨﻄﻘﻪ </th>
+  <td></td>
+</tfoot>
+<tbody>
+    <% unless @locations.empty? %>
+    <% @locations.each do |location| %>
+      <tr>
+        <td><%= location.id %></td>
+        <td><%= location.name %></td>       
+        <td><%= link_to 'تعديل', edit_location_path(location) %>
+        <%= link_to 'مسح', location_path(location),
+              method: :delete,
+              data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+    <% end %>
+
+</tbody>
+</table>

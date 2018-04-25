@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @workshop_salary.date %>
+</p>
+
+<p>
+  <strong>Workshop:</strong>
+  <%= @workshop_salary.workshop_id %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @workshop_salary.location_id %>
+</p>
+
+<%= link_to 'Edit', edit_workshop_salary_path(@workshop_salary) %> |
+<%= link_to 'Back', workshop_salaries_path %>

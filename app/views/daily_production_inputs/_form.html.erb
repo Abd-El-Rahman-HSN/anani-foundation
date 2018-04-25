@@ -1,0 +1,103 @@
+<%= simple_form_for @dailyproduction, html: { class: 'daily_production_form' }, wrapper: :vertical_form do |f| %>
+  <%= f.error_notification message: 'راجع الأخطاء' %>
+    <div class="panel panel-primary workers">
+      <div class="panel-heading">التقرير </div>
+        <div class="panel-body">
+          <%= f.input :serial, label: "المسلسل", disabled: true, input_html: {value: @dailyproduction.new_record? ?  DailyProductionInput.assign_serial : @dailyproduction.serial} %>
+          <%= f.input :date, label: "التاريخ", disabled: true, as: :string, input_html: {class: "dailyproduction_date", value:  @dailyproduction.new_record? ? Date.today : @dailyproduction.created_at.to_date} %>
+          <%= f.input :report_kind, label: "نوع التقرير" %>
+          <%= f.input :job_order_id, label: "السجادة", collection: CarpetDatum.all , value_method: :id, label_method: :name %>
+          <!-- <%= f.input :numrefpart, label: "رقم القطاع", collection: MainDesigne.all, value_method: :id, label_method: :refpart  %>
+          <%= f.input :totalrefpart, label: "اجمالي عدد خطوط القطاع", collection: MainDesigne.all, value_method: :id, label_method: :lines %>-->
+          <div class="form-group">
+            <table class="table table-bordered table-condensed">
+              <thead>
+                <tr>
+                  <th colspan="1" class="center">رقم القطاع</th>
+                  <th colspan="1" class="center">عدد الخطوط القطاع</th>
+                  <th colspan="1" class="center">الانتاج السابق</th>
+                  <th colspan="1" class="center">الانتاج الحالي</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                  <% unless @maindesignes.empty? %>
+                    <% @maindesignes.each do |maindesign| %>
+                      <tr>
+                        <td><%= maindesign.refpart %></td>
+                        <td><%= maindesign.lines %></td>
+                        <td><%= f.input :prevproduc, label:false, disabled: true,  collection: DailyProductionInput.all, value_method: :id, label_method: :curproduc %></td>
+                        <td><%= f.input :curproduc, label:false, class: "col-xs-1"%></td>
+                      </tr>
+                    <% end %>
+                  <% end %> 
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+
+  <div class="panel panel-primary workers">
+    <div class="panel-heading">العمال</div>
+    <div class="panel-body">
+      <div>
+        <%= new_fields_template f, :daily_production_lines %>
+      </div>
+
+      <table class="table" id="row_to">
+        <tr>
+        </tr>
+      </table>
+      <div id="daily_production_lines">
+        <table class="table" id="begin_table">
+          <thead>
+            <th>أسم العامل</th><th>أجمالى الأنتاج</th><th></th>
+          </thead>
+          <%= f.fields_for :daily_production_lines do |builder| %>
+            <tr>
+              <%= render "daily_production_line_fields", f: builder %>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+      <div class="inner">
+        <% if @daily_production_input.report_kind == 'seda' %>
+          <btn class='btn btn-primary add_child' data-association='daily_production_lines' target='begin_table'><span>أضف</span></btn>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+    <div class="panel panel-primary trainee_workers">
+      <div class="panel-heading">العمال المتدربين</div>
+      <div class="panel-body">
+        <div>
+          <%= new_fields_template f, :trainees %>
+        </div>
+
+        <table class="table" id="row_trainee">
+          <tr>
+          </tr>
+        </table>
+        <div id="daily_production_line_trainees">
+          <table class="table" id="begin_table_trainee">
+            <thead>
+              <th>أسم عامل التدريب</th><th>أجمالى الأنتاج</th><th></th>
+            </thead>
+            <%= f.fields_for :trainees do |builder| %>
+              <tr>
+                <%= render "trainee_fields", f: builder %>
+              </tr>
+            <% end %>
+          </table>
+        </div>
+        <div class="inner_trainee">
+          <% if @daily_production_input.report_kind == 'normal' %>
+            <btn class='btn btn-primary add_child_trainee' data-association='trainees' target='begin_table_trainee'><span>أضف</span></btn>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <%= f.submit "حفظ", class: "btn btn-default btn-primary" %>   
+<% end %>

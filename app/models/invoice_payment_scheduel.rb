@@ -1,0 +1,2 @@
+class InvoicePaymentScheduel < ApplicationRecord
+end

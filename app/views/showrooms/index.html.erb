@@ -1,0 +1,42 @@
+ <div class="page-header">
+    <h1>أماكن العرض</h1>
+
+    <%= link_to(new_showroom_path, class: "btn btn-success") do %>
+      مكان عرض جديد <i class="icon-plus icon-white"></i>
+    <% end %>
+
+</div>
+
+<table class="table table-striped table-bordered table-condensed">
+<thead>
+<tr>
+  <th colspan="1" class="center">اسم المعرض</th>
+  <th colspan="1" class="center">المنطقه</th>
+  <th colspan="1" class="center">العنوان</th>
+  <th colspan="1" class="center">اسم المسئول</th>
+  <th colspan="1" class="center">رقم التليفون</th>
+  <th colspan="1" class="action">Actions</th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+    <% unless @showrooms.empty? %>
+    <% @showrooms.each do |showroom| %>
+      <tr>
+        <td><%= showroom.name %></td>
+        <td><%= showroom.location %></td>
+        <td><%= showroom.address %></td>
+        <td><%= showroom.person_name %></td>
+        <td><%= showroom.person_number %></td>        
+        <td><%= link_to 'تعديل', edit_showroom_path(showroom) %>
+        <%= link_to 'مسح', showroom_path(showroom),
+              method: :delete,
+              data: { confirm: 'Are you sure?' } %>
+        </td>
+        <td></td>
+      </tr>
+    <% end %>
+    <% end %>
+
+</tbody>
+</table>

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Receive Groups</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Workshop</th>
+      <th>Serial</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @receive_groups.each do |receive_group| %>
+      <tr>
+        <td><%= receive_group.workshop_id %></td>
+        <td><%= receive_group.serial %></td>
+        <td><%= link_to 'Show', receive_group %></td>
+        <td><%= link_to 'Edit', edit_receive_group_path(receive_group) %></td>
+        <td><%= link_to 'Destroy', receive_group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Receive Group', new_receive_group_path %>

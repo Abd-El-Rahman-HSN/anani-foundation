@@ -1,0 +1,95 @@
+$(document).on("turbolinks:before-cache", function() {
+  $('#requests_table').DataTable().destroy();
+  $('#transactions_table').DataTable().destroy();
+});
+
+$(document).on('turbolinks:load', function() {
+	$('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
+    var table = $.fn.dataTable.fnTables(true);
+   	if ( table.length > 0 ) {
+		  $(table).css('width', '100%');
+    }
+  });
+
+  $('#requests_table tfoot th').each( function () {
+    var title = $(this).text();
+    $(this).html( '<input type="text" placeholder="أبحث '+ title +'" />' );
+  });
+
+  var table_request = $('#requests_table').DataTable( {
+  	"order": [[ 3, "desc" ], [2, "desc"]],
+  	language: {
+      "sProcessing":   "جاري التحميل...",
+      "sLengthMenu":   "أظهر مُدخلات _MENU_",
+      "sZeroRecords":  "لم يُعثر على أية سجلات",
+      "sInfo":         "إظهار _START_ إلى _END_ من أصل _TOTAL_ مُدخل",
+      "sInfoEmpty":    "يعرض 0 إلى 0 من أصل 0 سجلّ",
+      "sInfoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
+      "sInfoPostFix":  "",
+      "sSearch":       "ابحث:",
+      "sUrl":          "",
+      "oPaginate": {
+        "sFirst":    "الأول",
+        "sPrevious": "السابق",
+        "sNext":     "التالي",
+        "sLast":     "الأخير"
+      }
+    }
+  });
+
+  $('#transactions_table tfoot th').each( function () {
+    var title = $(this).text();
+    $(this).html( '<input type="text" placeholder="أبحث '+ title +'" />' );
+  });
+
+  var table_transaction = $('#transactions_table').DataTable( {
+    "order": [ [2, "desc"]],
+    language: {
+      "sProcessing":   "جاري التحميل...",
+      "sLengthMenu":   "أظهر مُدخلات _MENU_",
+      "sZeroRecords":  "لم يُعثر على أية سجلات",
+      "sInfo":         "إظهار _START_ إلى _END_ من أصل _TOTAL_ مُدخل",
+      "sInfoEmpty":    "يعرض 0 إلى 0 من أصل 0 سجلّ",
+      "sInfoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
+      "sInfoPostFix":  "",
+      "sSearch":       "ابحث:",
+      "sUrl":          "",
+      "oPaginate": {
+        "sFirst":    "الأول",
+        "sPrevious": "السابق",
+        "sNext":     "التالي",
+        "sLast":     "الأخير"
+      }
+    }
+  });
+
+  
+
+  table_request.columns().every( function () {
+    var that = this;
+
+    $( 'input', this.footer() ).on( 'keyup change', function () {
+
+        if ( that.search() !== this.value ) {
+            that
+              .search( this.value )
+              .draw();
+        }  
+      });
+  });
+
+  table_transaction.columns().every( function () {
+    var that = this;
+
+    $( 'input', this.footer() ).on( 'keyup change', function () {
+
+        if ( that.search() !== this.value ) {
+            that
+              .search( this.value )
+              .draw();
+        }  
+      });
+  });
+
+  
+});

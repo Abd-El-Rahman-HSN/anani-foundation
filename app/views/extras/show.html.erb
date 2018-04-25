@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Cost:</strong>
+  <%= @extra.cost %>
+</p>
+
+<p>
+  <strong>Worker:</strong>
+  <%= @extra.worker_id %>
+</p>
+
+<p>
+  <strong>Workshop:</strong>
+  <%= @extra.workshop_id %>
+</p>
+
+<%= link_to 'Edit', edit_extra_path(@extra) %> |
+<%= link_to 'Back', extras_path %>

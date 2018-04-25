@@ -1,0 +1,47 @@
+<%= simple_form_for @user, wrapper: :vertical_form do |f| %>
+  <%= f.error_notification message: 'راجع الأخطاء' %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@user.errors.count, "error") %> prohibited
+        this user from being saved:
+      </h2>
+      <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="form-inputs">
+    <%= f.input :email, label: "الأيميل" %>
+    <%= f.input :full_name, label: "أسم المستخدم" %>
+    <div class="form-group">
+      <%= f.label :password %>
+      <%= f.password_field :password, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation, class: 'form-control' %>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-4">
+        <%= f.input :admin, label: 'مدير' %>
+      </div>
+      <div class="col-xs-4">
+        <%= f.input :inventory, label: 'المخزن' %>
+      </div>
+      <div class="col-xs-4">
+        <%= f.input :recorder, label: 'مسجل' %>
+      </div>
+    </div>
+  </div>
+
+    
+  <div class="form-actions">
+    <%= f.submit "حفظ", class: "btn btn-default btn-primary" %> 
+    <%= link_to "رجوع", :back, class: "btn btn-default" %>
+  </div>
+<% end %>

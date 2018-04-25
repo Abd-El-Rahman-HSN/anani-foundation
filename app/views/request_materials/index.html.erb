@@ -1,0 +1,16 @@
+<div class="page-header">
+  <h1>تاريخ الطلبات لأمر الشغل رقم <%= @job_order.id %></h1>
+</div>
+
+<% @request_materials.includes(:warehouse_transactions).each do |request| %>
+  <% WarehouseTransactionLine.joins(:request_material_line, :warehouse_transaction).where('request_material_lines.request_material_id': request.id).order('warehouse_transactions.date desc').each do |tr_line| %>
+    <div class="panel panel-primary">
+	    <div class="panel-heading">حركة رقم <%= tr_line.warehouse_transaction.serial %> بتاريخ <%= tr_line.warehouse_transaction.date %> لطلب صرف رقم <%= request.serial %></div>
+	    <div class="panel-body">
+	      تم صرف عدد <%= tr_line.quantity %> من الخامة <%= tr_line.raw_material_warehouse.item %>
+	    </div>
+	  </div>
+  <% end %>
+<% end %>
+
+<%= link_to "رجوع", :back, class: "btn btn-default" %>

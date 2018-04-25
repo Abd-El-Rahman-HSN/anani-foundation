@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Workshop:</strong>
+  <%= @receive_group.workshop_id %>
+</p>
+
+<p>
+  <strong>Serial:</strong>
+  <%= @receive_group.serial %>
+</p>
+
+<%= link_to 'Edit', edit_receive_group_path(@receive_group) %> |
+<%= link_to 'Back', receive_groups_path %>

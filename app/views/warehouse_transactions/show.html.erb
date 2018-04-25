@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @warehouse_transaction.created_at %>
+</p>
+
+<p>
+  <strong>Serial:</strong>
+  <%= @warehouse_transaction.serial %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @warehouse_transaction.status %>
+</p>
+
+<%= link_to 'Edit', edit_warehouse_transaction_path(@warehouse_transaction) %> |
+<%= link_to 'Back', warehouse_transactions_path %>

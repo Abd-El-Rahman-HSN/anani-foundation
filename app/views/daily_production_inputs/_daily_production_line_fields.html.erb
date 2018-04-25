@@ -1,0 +1,12 @@
+<%= f.hidden_field :_destroy, class: 'removable' %>
+<td>
+	<%= f.input :worker_id, label: false, disabled: @daily_production_input.report_kind != 'seda', collection: @workers ,label_method: :name , value_method: :id, wrapper: :vertical_file_input, input_html: {class: "col-xs-12 form-control select daily_worker_field"} %>
+</td>
+<td>
+	<%= f.input :number_of_rows, label: false, disabled: @daily_production_input.report_kind == 'seda', input_html: {class: "daily_number_of_rows_field col-xs-12"} %>
+</td>
+<td>
+	<% if @daily_production_input.report_kind == 'seda' %>
+		<btn class="btn btn-danger remove_child"><span>حذف</span></btn>
+	<% end %>
+</td>

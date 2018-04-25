@@ -1,0 +1,13 @@
+
+var calc = function () {
+  var lenInput = document.getElementById("len").firstChild.value,
+      widInput = document.getElementById("wid").firstChild.value,
+      arOutput = document.getElementById("ar").firstChild.value;
+
+      arOutput = parseInt(lenInput) * parseInt(widInput);
+
+}
+
+document.getElementById("wid").firstChild.onblur = function () {
+  calc();
+}

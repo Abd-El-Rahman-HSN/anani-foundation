@@ -1,0 +1,106 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require theme
+ *= require devise_bootstrap_views
+ *= require toastr
+ *= require_tree .
+ *= require_self
+ */
+
+@import "font-awesome";
+
+body{
+  font-size: 16px;
+  direction: rtl;
+  text-align: right;
+
+}
+
+.scrollable-menu {
+  height: auto;
+  max-height: 100vh;
+  overflow-x: hidden;
+}
+.no-sort::after { display: none!important; }
+
+.no-sort { pointer-events: none!important; cursor: default!important; }
+
+tfoot {
+    display: table-row-group;
+}
+tfoot input {
+    width: 100%;
+    padding: 3px;
+    box-sizing: border-box;
+}
+
+.page-header h1{
+  display: inline-block;
+  margin-top: 0px;
+}
+table th {
+  text-align: right;
+}
+
+.form-group .control-label {
+  text-align: right !important;
+}
+
+.datepicker th.prev {
+  transform: rotate(180deg);
+}
+
+.datepicker th.next {
+  transform: rotate(180deg);
+}
+
+.modal-body {
+  overflow: auto;
+}
+
+@media (min-width: 992px){
+  .col-md-4 {
+    width:15.33333333%;
+    float:right;
+  }
+  .col-md-6{
+    float: right;
+  }
+  .form{
+    width:600px;
+  }
+  .col-md-8{
+    width: 35%;
+    float: right;
+  }
+  .btn{
+    float: left;
+  }
+
+  .table,th,td{
+    background: #fff;
+    text-align:center; 
+    vertical-align:middle;
+    direction: rtl;
+  }
+
+  .nav>li>a{
+    padding: 10px 15px !important;
+  }
+
+}
+
+.dropdown-menu {
+  right: auto !important;
+}
+

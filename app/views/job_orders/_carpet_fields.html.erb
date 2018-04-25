@@ -1,0 +1,60 @@
+<% if action == "show" %>
+	
+		<%= f.input :name, disabled: true, label: "أسم السجادة" %>
+		<%= f.input :number_of_rows, disabled: true, label: "عدد خطوط السجادة" %>
+		<div class="row">
+
+			<div class="col-xs-4">
+				<%= f.input :length, disabled: true, label: "طول السجادة" %>
+			</div>
+			<div class="col-xs-4">
+				<%= f.input :width, disabled: true, label: "عرض السجادة" %>
+			</div>
+			<input class="form-control numeric integer required" type="number" step="1" name="job_order[carpet_datum_attributes][number_of_rows]" id="job_order_carpet_datum_attributes_number_of_rows">
+			<div class="col-xs-4">
+				<%= f.input :area, disabled: true, label: "مساحة السجادة", disabled: true,input_html: { value: params[:job_order].present? ? params[:job_order][:carpet_datum_attributes][:area] : @job_order.new_record? ? nil : f.object.calc_area } %>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6">
+				<%= f.input :knot, disabled: true, label: "عدد العقد للخط" %>
+			</div>
+			<div class="col-xs-6">
+				<%= f.input :price_hundred, disabled: true, label: "سعر لكل 100 عقدة" %>
+			</div>
+		</div>
+		<%= f.input :seda, disabled: true, label: "السدى" %>
+<% else %>
+	<div class='nested-fields'>
+		<%= f.input :name, label: "أسم السجادة" %>
+					
+
+		<%= f.input :number_of_rows, label: "عدد خطوط السجادة" %>
+		<div class="row">
+			<div class="col-xs-4">
+				<%= f.input :name_design, label: "اسم التصميم", collection: MainDesigne.all   %>
+			</div>
+			<div class="col-xs-4">
+				<%= f.input :length, label: "طول السجادة" %>
+			</div>
+			<div class="col-xs-4">
+				<%= f.input :width, label: "عرض السجادة" %>
+			</div>
+			<div class="col-xs-4">
+				<%= f.input :area, label: "مساحة السجادة", disabled: true,input_html: { value: params[:job_order].present? ? params[:job_order][:carpet_datum_attributes][:area] : @job_order.new_record? ? nil : f.object.calc_area } %>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6">
+				<%= f.input :knot, label: "عدد العقد للخط" %>
+			</div>
+			<div class="col-xs-6">
+				<%= f.input :price_hundred, label: "سعر لكل 100 عقدة" %>
+			</div>
+		</div>
+		<%= f.input :seda, label: "السدى" %>
+
+	</div>
+<% end %>

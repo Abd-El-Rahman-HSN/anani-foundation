@@ -1,0 +1,29 @@
+<h1>Warehouse Transactions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Serial</th>
+      <th>Status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @warehouse_transactions.each do |warehouse_transaction| %>
+      <tr>
+        <td><%= warehouse_transaction.created_at %></td>
+        <td><%= warehouse_transaction.serial %></td>
+        <td><%= warehouse_transaction.status %></td>
+        <td><%= link_to 'Show', warehouse_transaction %></td>
+        <td><%= link_to 'Edit', edit_warehouse_transaction_path(warehouse_transaction) %></td>
+        <td><%= link_to 'Destroy', warehouse_transaction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Warehouse Transaction', new_warehouse_transaction_path %>

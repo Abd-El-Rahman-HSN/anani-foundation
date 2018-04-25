@@ -1,0 +1,11 @@
+<div class='nested-fields'>
+	<div class="row">
+	  <div class="col-xs-6">
+		  <%= f.input :worker_id, label: false ,collection: @workers ,label_method: :name , value_method: :id, wrapper: :vertical_file_input, input_html: {class: 'worker_field col-xs-12 form-control select'} %>
+		</div>
+
+		<div class="col-xs-2"> 
+			<%= link_to_remove_association button_tag("<i class='fa fa-trash'></i> <span>حذف</span>".html_safe, type: "button", class: "btn btn-danger btn-rounded btn-ef btn-ef-5 btn-ef-5b mb-10") , f %>
+		</div>
+	</div>
+</div>

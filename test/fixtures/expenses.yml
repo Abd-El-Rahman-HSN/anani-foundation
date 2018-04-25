@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  kind: MyString
+  amount: 1.5
+  date: 2017-05-05
+  workshop_id: 1
+
+two:
+  kind: MyString
+  amount: 1.5
+  date: 2017-05-05
+  workshop_id: 1

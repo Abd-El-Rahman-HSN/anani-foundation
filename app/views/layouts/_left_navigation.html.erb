@@ -1,0 +1,52 @@
+<div class="navbar-default sidebar" role="navigation" >
+  <div class="sidebar-nav navbar-collapse active">
+    <ul class="nav in scrollable-menu" id="side-menu">
+      <li class="active">
+        <a href="#"><i class="fa fa-dashboard fa-fw"></i> القائمه الرئيسيه</a>
+      </li>
+      <% if can? :index, JobOrder %>
+        <li>
+          <%= link_to job_orders_path do %>
+            امر الشغل<% if current_user.admin? %><span class="badge"><%= JobOrder.under_acceptance.count %></span><% end %>
+          <% end %>
+        </li>
+        <li><%= link_to 'موردين', suppliers_path %></li>
+        <li><%= link_to 'المناطق', locations_path %></li>
+        <li><%= link_to 'الدورات الأنتاجية', production_phases_path %></li>
+      <% end %>
+      <% if can? :manage, RawMaterialWarehouse %>
+        <li><%= link_to raw_material_warehouses_path do %>
+          مخازن المواد الخام <span class="badge badge_request"><%= RequestMaterial.open.count %></span>
+        <% end %>
+        </li>
+      <% end %>
+      <% if can? :read, DailyProductionInput %>
+        <li><%= link_to 'تقارير يوميه', daily_production_inputs_path %></li>
+        <li><%= link_to 'الدفعات المرسلة', send_groups_path %></li>
+      <% end %>
+      <% if can? :manage, User %>
+        <li><%= link_to 'المستخدمين', users_path %></li>
+        <li><%= link_to 'كشف توزيع اجور انتاج', workshop_salaries_path %></li>
+
+      <% end %>
+      <li><a href="#">البيانات الرئيسيه <span class="fa arrow"></span></a>
+        <ul class="nav nav-third-level">
+          <% if can? :index, JobOrder %>
+            <li><%= link_to 'العمال', workers_path %></li> 
+            <li><%= link_to 'النول', looms_path %></li>
+            <li><%= link_to 'المكافئات', extras_path %></li> 
+            <li><%= link_to 'الخصومات', reductions_path %></li> 
+            <li><%= link_to 'المصروفات', expenses_path %></li> 
+            <li><%= link_to 'التصميمات الرئسيه', main_designes_path %></li>
+            <li><%= link_to 'الفئات', categories_path %></li>
+            <li><%= link_to 'الورش', workshops_path %></li>
+            <li><%= link_to 'اماكن العرض', showrooms_path %></li>
+            <li><%= link_to 'الفواتير', invoices_path %></li>
+            <li><%= link_to 'دفع الفواتير', invoice_payment_scheduels_path %></li>
+          <% end %>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+

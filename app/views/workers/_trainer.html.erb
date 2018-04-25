@@ -1,0 +1,30 @@
+<div class="table-responsive">
+	<table class="table table-bordered table-condensed">
+		<tr>
+	    <td></td>
+	    <th>المرتب</th>
+	    <th>السدى</th>
+	    <th>المكافئات</th>
+	    <th>الخصومات</th>
+	    <th>الاجمالي</th>
+	  </tr>
+		<% @workers.where(category: "trainer").each do |worker| %>
+			<% month = params[:month].to_datetime %>
+			<% seda_lines = worker.get_seda_lines(params[:month]) %>
+			<% seda_lines_cost = seda_lines.collect(&:daily_production_input).collect(&:job_order).collect(&:loom).collect(&:seda_trainer).collect(&:to_f).reduce(:+) || 0 %>
+			<% extras = worker.extras.where(created_at: month.beginning_of_month..month.end_of_month).pluck(:cost).reduce(:+) || 0 %>
+			<% reductions = worker.reductions.where(created_at: month.beginning_of_month..month.end_of_month).pluck(:cost).reduce(:+) || 0 %>
+			<% worker_cost = seda_lines_cost + worker.rate_amount + extras - reductions %>
+		  <% @total_income += worker_cost %>
+
+			<tr>
+				<th><%= worker.name %></th>
+			  <td><%= worker.rate_amount %></td>
+			  <td><%= seda_lines_cost %></td>
+			  <td><%= extras %></td>
+			  <td><%= reductions %></td>
+			  <td><%= worker_cost %></td>
+			</tr>
+		<% end %>
+	</table>
+</div>

@@ -1,0 +1,48 @@
+ <%= form_for @showroom, :html => {:class => "form-horizontal center"} do |f| %>
+  <% if @showroom.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@showroom.errors.count, "error") %> prohibited
+        this showroom from being saved:
+      </h2>
+      <ul>
+        <% @showroom.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+<div class="form-group">
+        <%= f.label :name, "اسم المعرض:", class: "col-md-4 control-label" %>
+        <div class="col-md-8">
+          <%= f.text_field :name, class: "form-control" %>
+        </div>
+      </div>
+      <div class="form-group">
+        <%= f.label :location, "المنطقه:", class: "col-md-4 control-label" %>
+        <div class="col-md-8">
+          <%= f.text_field :location, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :address, "العنوان:", class: "col-md-4 control-label" %>
+        <div class="col-md-8">
+          <%= f.text_field :address, class: "form-control" %>
+        </div>
+      </div>
+       <div class="form-group">
+        <%= f.label :person_name, "اسم المسئول:", class: "col-md-4 control-label" %>
+        <div class="col-md-8">
+          <%= f.text_field :person_name, class: "form-control" %>
+        </div>
+      </div>
+       <div class="form-group">
+        <%= f.label :person_number, "رقم التليفون:", class: "col-md-4 control-label" %>
+        <div class="col-md-8">
+          <%= f.text_field :person_number, class: "form-control" %>
+        </div>
+      </div>
+  
+      <%= f.submit "حفظ", class: "btn btn-default btn-primary" %>   
+ <% end %>

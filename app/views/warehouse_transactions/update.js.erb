@@ -1,0 +1,14 @@
+$('#add_materials').modal('hide');
+
+<% @warehouse_transaction.warehouse_transaction_lines.each do |tr_line| %>
+	$('#tr_<%= tr_line.raw_material_warehouse_id %>').html('<%= tr_line.raw_material_warehouse.quantity %>');
+<% end %>
+
+<% if @status == 'release' %>
+	$('#status_<%= @warehouse_transaction.request_material_id %>').html('<%= j material_status(@warehouse_transaction.request_material.status) %>')
+	$('.badge_request').html('<%= RequestMaterial.open.count %>');
+	<% if @warehouse_transaction.request_material.status == 'closed' %>
+		$('.link_<%= @warehouse_transaction.request_material_id %>').html('');
+	<% end %>
+<% end %>
+

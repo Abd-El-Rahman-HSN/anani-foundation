@@ -1,0 +1,44 @@
+<div class="page-header">
+  <h1>المكافئات</h1>
+
+  <%= link_to(new_extra_path, class: "btn btn-success") do %>
+    اضافة مكافئة <i class="icon-plus icon-white"></i>
+  <% end %>
+</div>
+
+<table class="table table-bordered table-condensed table-striped">
+  <thead>
+    <tr>
+      <th>الورشة</th>
+      <th>الأسم</th>
+      <th>التاريخ</th>
+      <th>المبلغ</th>
+      <th class="no-sort"></th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <th>الورشة</th>
+      <th>الأسم</th>
+      <th>التاريخ</th>
+      <th>المبلغ</th>
+      <td></td>
+    </tr>
+  </tfoot>
+  <tbody>
+    <% unless @extras.empty? %>
+      <% @extras.includes(:workshop, :worker).each do |extra| %>
+        <tr>
+          <td><%= extra.workshop.name %></td>
+          <td><%= extra.worker.name %></td>
+          <td><%= l extra.created_at.to_date, format: :date_month_year_concise %></td>      
+          <td><%= extra.cost %></td>
+          <td><%= link_to 'عرض', edit_extra_path(extra) %> <%= link_to 'مسح', extra_path(extra),
+                method: :delete,
+                data: { confirm: 'Are you sure?' } %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

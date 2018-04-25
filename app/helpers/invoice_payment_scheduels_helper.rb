@@ -1,0 +1,2 @@
+module InvoicePaymentScheduelsHelper
+end

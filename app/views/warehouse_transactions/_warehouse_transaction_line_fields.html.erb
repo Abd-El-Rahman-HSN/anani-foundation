@@ -1,0 +1,52 @@
+<% if @status == 'add' %>
+	<div class='nested-fields'>
+		<div class="row">
+		  <div class="col-xs-3">
+			  <%= f.input :raw_material_warehouse_id, label: false ,collection: @raw_materials ,label_method: :item , value_method: :id, input_html: {class: 'raw_field'} %>
+			</div>
+
+	    <%= f.input :status, as: :hidden, input_html: { value: params[:status] || params[:warehouse_transaction][:status] } %>
+
+
+			<div class="col-xs-3">
+			  <%= f.input :quantity, label: false, input_html: {class: 'quantity_field'} %>
+			</div>
+
+			<div class="col-xs-3">
+			  <%= f.input :unit, label: false %>
+			</div>
+			<div class="col-xs-3">
+					<%= f.input :suppliers, label: false ,collection: Supplier.all  %>
+
+			</div>
+
+
+			<div class="col-xs-12"> 
+				<%= link_to_remove_association button_tag("<i class='fa fa-trash'></i> <span>حذف</span>".html_safe, type: "button", class: "btn btn-danger 	btn-rounded btn-ef btn-ef-5 btn-ef-5b mb-10") , f %>
+			</div>
+		</div>
+	</div>
+<% elsif @status == 'release' %>
+	<div class='nested-fields'>
+		<div class="row">
+		  <div class="col-xs-3">
+			  <%= f.input :raw_material_warehouse_id, label: false, readonly: true ,collection: @raw_materials ,label_method: :item , value_method: :id, input_html: {class: 'raw_field'} %>
+			</div>
+
+			<div class="col-xs-3">
+			  <%= f.input :required_quantity, readonly: true, label: false, input_html: {class: 'required_quantity_field'} %>
+			</div>
+
+	    <%= f.input :status, as: :hidden, input_html: { value: params[:status] || params[:warehouse_transaction][:status] } %>
+	    <%= f.input :request_material_line_id, as: :hidden %>
+
+			<div class="col-xs-3">
+			  <%= f.input :available_quantity, as: :integer, readonly: true, label: false, input_html: {class: 'available_quantity_field', value: get_available_quantity(f.object.raw_material_warehouse_id)} %>
+			</div>
+
+			<div class="col-xs-3">
+			  <%= f.input :quantity, label: false, input_html: {class: 'quantity_field', value: f.object.quantity || 0} %>
+			</div>
+		</div>
+	</div>
+<% end %>

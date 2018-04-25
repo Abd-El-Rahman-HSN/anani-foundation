@@ -1,0 +1,12 @@
+<%= simple_form_for @workshop, wrapper: :boot_form do |f| %>
+  <%= f.error_notification message: 'راجع الأخطاء' %>
+  
+  <%= f.input :name, label: "اسم الورشه" %>
+  <%= f.input :location_id, label: "المنطقه:", collection: @locations,label_method: :name , value_method: :id %>
+
+  <% if current_user.admin? %>
+    <%= f.input :user_id, label: "المستخدم", collection: @users ,label_method: :email , value_method: :id %>
+  <% end %>
+
+  <%= f.submit "حفظ", class: "btn btn-default btn-primary" %>   
+<% end %>

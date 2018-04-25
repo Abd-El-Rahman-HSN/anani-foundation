@@ -1,0 +1,17 @@
+/*
+ * vendor css files 
+ *= require theme/css/bootstrap.min
+ *= require theme/css/bootstrap-rtl.min
+ * require theme/css/font-awesome.min
+ *= require theme/js/datatables/css/jquery.dataTables.min.css
+ *= require theme/js/bootstrap-datepicker/css/bootstrap-datepicker.min.css
+
+
+
+
+ * require theme/js/vendor/chosen/chosen.min.css
+ *
+ *
+ * project main css files 
+ *= require theme/css/startmin.css
+ */
